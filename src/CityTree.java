@@ -21,18 +21,51 @@ public class CityTree {
 
     // Teslimat rotasını ağaç yapısı ile başlatır
     private void initializeTree() {
+        // Birinci seviye şehirler
         CityNode ankara = new CityNode("Ankara", 2);
         CityNode izmir = new CityNode("Izmir", 3);
         CityNode bursa = new CityNode("Bursa", 4);
 
-        ankara.addChild(new CityNode("Eskisehir", 5));
-        izmir.addChild(new CityNode("Aydın", 6));
-        bursa.addChild(new CityNode("Balıkesir", 7));
+        // Ankara'nın alt şehirleri
+        CityNode eskisehir = new CityNode("Eskisehir", 5);
+        CityNode konya = new CityNode("Konya", 6);
+        ankara.addChild(eskisehir);
+        ankara.addChild(konya);
 
+        // Izmir'in alt şehirleri
+        CityNode aydin = new CityNode("Aydın", 7);
+        CityNode manisa = new CityNode("Manisa", 8);
+        izmir.addChild(aydin);
+        izmir.addChild(manisa);
+
+        // Bursa'nın alt şehirleri
+        CityNode balikesir = new CityNode("Balıkesir", 9);
+        CityNode canakkale = new CityNode("Çanakkale", 10);
+        bursa.addChild(balikesir);
+        bursa.addChild(canakkale);
+
+        // Daha alt seviyedeki şehirler
+        eskisehir.addChild(new CityNode("Afyon", 11));
+        eskisehir.addChild(new CityNode("Kütahya", 12));
+
+        konya.addChild(new CityNode("Karaman", 13));
+        konya.addChild(new CityNode("Isparta", 14));
+
+        aydin.addChild(new CityNode("Denizli", 15));
+        aydin.addChild(new CityNode("Muğla", 16));
+
+        manisa.addChild(new CityNode("Uşak", 17));
+        manisa.addChild(new CityNode("Kütahya", 18)); // İki defa kullanmak sorun oluşturmaz
+
+        balikesir.addChild(new CityNode("Edremit", 19));
+        balikesir.addChild(new CityNode("Bandırma", 20));
+
+        // Ağacın köküne birinci seviye şehirleri ekliyoruz
         root.addChild(ankara);
         root.addChild(izmir);
         root.addChild(bursa);
     }
+
 
     // Şehir adı ile şehir düğümünü bulur
     public CityNode findCityByName(String cityName) {

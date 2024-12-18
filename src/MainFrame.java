@@ -1,6 +1,7 @@
 
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.util.List;
 
@@ -268,9 +269,37 @@ public class MainFrame extends JFrame {
     }
 
     // 6. Teslimat Rotalarını Göster
+    // 6. Teslimat Rotalarını Göster
     private void showDeliveryRoutesDialog() {
-        JOptionPane.showMessageDialog(this, "Teslimat rotaları henüz uygulanmadı.", "Bilgi", JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = new JDialog(this, "Teslimat Rotaları", true);
+        dialog.setLayout(new BorderLayout());
+
+        // Şehir ağacını JTree bileşeniyle göster
+        DefaultMutableTreeNode root = createTreeNode(cityTree.getRoot());
+        JTree tree = new JTree(root);
+        JScrollPane scrollPane = new JScrollPane(tree);
+
+        JButton closeButton = new JButton("Kapat");
+        closeButton.addActionListener(e -> dialog.dispose());
+
+        dialog.add(scrollPane, BorderLayout.CENTER);
+        dialog.add(closeButton, BorderLayout.SOUTH);
+
+        dialog.setSize(500, 600);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
+
+    // Şehir ağacını JTree'ye uygun bir yapıya dönüştür
+    private DefaultMutableTreeNode createTreeNode(CityNode cityNode) {
+        DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(cityNode.getCityName());
+        for (CityNode child : cityNode.getChildren()) {
+            treeNode.add(createTreeNode(child));
+        }
+        return treeNode;
+    }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
